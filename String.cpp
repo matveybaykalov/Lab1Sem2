@@ -20,7 +20,7 @@ String::String(const char* str){
         root[iter] = str[iter];
         iter++;
     }
-    root[iter+1] = '\0';
+    root[iter] = '\0';
 }
 
 int String::length () const {
@@ -56,7 +56,7 @@ String& String::operator=(const String& str){
             this->root[iter] = str.root[iter];
             iter++;
         }
-        this->root[iter + 1] = '\0';
+        this->root[iter] = '\0';
     }
     return *this;
 }
@@ -94,7 +94,7 @@ char String::operator[](int n) const{
     return root[n];
 }
 
-void String::replace(char chf, char chr){
+void String::replace(char chf, char chr) const{
     for (int i = 0; i < length(); ++i){
         if (root[i] == chf){
             root[i] = chr;
@@ -102,18 +102,18 @@ void String::replace(char chf, char chr){
     }
 }
 
-String& String::operator+(const String& str){
+String operator+(const String& lhs, const String& rhs){
     String NewStr;
-    int rhs = str.length(), lhs = length();
-    int size = lhs + rhs;
+    int lhsS = lhs.length(), rhsS = rhs.length();
+    int size = lhsS + rhsS;
     NewStr.root = new char [size+1];
-    for (int i = 0; i < lhs; ++i){
-        NewStr.root[i] = this->root[i];
+    for (int i = 0; i < lhsS; ++i){
+        NewStr.root[i] = lhs.root[i];
     }
-    for (int i = 0; i < rhs; ++i){
-        NewStr.root[lhs+1+i] = str.root[i];
+    for (int i = 0; i < rhsS; ++i){
+        NewStr.root[lhsS+i] = rhs.root[i];
     }
-    NewStr.root[size+1] = '\0';
+    NewStr.root[size] = '\0';
     return NewStr;
 }
 
@@ -129,5 +129,6 @@ std::istream& operator>> (std::istream& stream, String& str){
     stream >> temp;
     String temp2(temp);
     str = temp2;
+    delete [] temp;
     return stream;
 }
