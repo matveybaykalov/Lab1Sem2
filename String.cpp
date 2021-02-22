@@ -50,6 +50,7 @@ String::~String() {
 String& String::operator=(const String& str){
     if (this != &str) {
         int size = str.length();
+        delete [] this->root;
         this->root = new char[size + 1];
         int iter = 0;
         while (str.root[iter] != '\0') {
@@ -76,9 +77,10 @@ bool String::operator== (const String& rhs) const{
 }
 
 int String::substr(const String &str) const {
-    for (int i = 0; i < length()-str.length(); ++i){
+    for (int i = 0; i <= length()-str.length(); ++i){
         bool flag = true;
-        for (int j = 0; j < str.length()-1; ++j) {
+        //std::cout << str.length() << std::endl;
+        for (int j = 0; j < str.length(); ++j) {
             if (root[i + j] != str.root[j]) {
                 flag = false;
             }

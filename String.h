@@ -9,8 +9,8 @@
 
 
 class String {
-public:
     char* root;
+public:
     String ();
     String (const String&);
     explicit String (const char*);
@@ -21,9 +21,9 @@ public:
     int substr(const String&) const;
     char operator[](int) const;
     void replace (char, char) const;
+    friend String operator+(const String&, const String&);
 };
 
-String operator+(const String&, const String&);
 std::ostream& operator<< (std::ostream&,const String&);
 std::istream& operator>> (std::istream& stream, String& str);
 
